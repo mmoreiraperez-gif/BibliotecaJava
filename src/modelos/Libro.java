@@ -42,35 +42,25 @@ public class Libro {
     // ==========================
 
     public void prestar() throws LibroNoDisponibleException {
-
-        // TODO:
-        // Verificar si el libro ya está prestado.
-        // Si no está disponible, lanzar LibroNoDisponibleException.
-        // Si está disponible, cambiar disponible a false.
-
+        if (!disponible) {
+            throw new LibroNoDisponibleException("El libro ya está prestado.");
+        }
+        disponible = false;
     }
 
     public void devolver() throws LibroNoPrestadoException {
-
-        // TODO:
-        // Verificar si el libro realmente estaba prestado.
-        // Si ya estaba disponible, lanzar LibroNoPrestadoException.
-        // En caso contrario, cambiar disponible a true.
-
+        if (disponible) {
+            throw new LibroNoPrestadoException("El libro no estaba prestado.");
+        }
+        disponible = true;
     }
 
     @Override
     public String toString() {
-
-        // TODO:
-        // Mostrar ISBN, título, autor y estado del libro.
-        // Formato sugerido:
-        // ISBN: ...
-        // Título: ...
-        // Autor: ...
-        // Estado: Disponible / Prestado
-
-        return titulo;
+        return "ISBN: " + isbn + "\n" +
+               "Título: " + titulo + "\n" +
+               "Autor: " + autor + "\n" +
+               "Estado: " + (disponible ? "Disponible" : "Prestado");
     }
 
 }

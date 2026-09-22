@@ -2,6 +2,8 @@ package app;
 
 import java.util.Scanner;
 
+import excepciones.LibroNoDisponibleException;
+import excepciones.LibroNoPrestadoException;
 import modelos.Libro;
 
 public class App {
@@ -30,28 +32,37 @@ public class App {
             switch (opcion) {
 
                 case 1:
-
-                    // TODO:
-                    // Mostrar todos los libros utilizando mostrarLibros()
-
+                    mostrarLibros(biblioteca);
                     break;
 
                 case 2:
-
-                    // TODO:
-                    // Solicitar el número del libro.
-                    // Llamar al método prestar().
-                    // Manejar las excepciones correspondientes.
-
+                    System.out.print("Ingrese el número del libro a prestar: ");
+                    int numPrestar = scanner.nextInt();
+                    if (numPrestar >= 1 && numPrestar <= biblioteca.length) {
+                        try {
+                            biblioteca[numPrestar - 1].prestar();
+                            System.out.println("Libro prestado con éxito.");
+                        } catch (LibroNoDisponibleException e) {
+                            System.out.println("Error: " + e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Número de libro no válido.");
+                    }
                     break;
 
                 case 3:
-
-                    // TODO:
-                    // Solicitar el número del libro.
-                    // Llamar al método devolver().
-                    // Manejar las excepciones correspondientes.
-
+                    System.out.print("Ingrese el número del libro a devolver: ");
+                    int numDevolver = scanner.nextInt();
+                    if (numDevolver >= 1 && numDevolver <= biblioteca.length) {
+                        try {
+                            biblioteca[numDevolver - 1].devolver();
+                            System.out.println("Libro devuelto con éxito.");
+                        } catch (LibroNoPrestadoException e) {
+                            System.out.println("Error: " + e.getMessage());
+                        }
+                    } else {
+                        System.out.println("Número de libro no válido.");
+                    }
                     break;
 
                 case 0:
@@ -86,16 +97,9 @@ public class App {
     }
 
     public static void mostrarLibros(Libro[] biblioteca) {
-
-        // TODO:
-        // Recorrer el arreglo utilizando un ciclo.
-        // Mostrar cada libro junto con su número.
-        //
-        // Ejemplo:
-        //
-        // 1. Java Básico
-        // 2. Python para Todos
-
+        for (int i = 0; i < biblioteca.length; i++) {
+            System.out.println((i + 1) + ". " + biblioteca[i].getTitulo());
+        }
     }
 
 }
